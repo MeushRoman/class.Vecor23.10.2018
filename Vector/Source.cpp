@@ -6,6 +6,11 @@ using namespace std;
 void main() {
 
 	Vector v(10, 7);
-	cout << v[5];
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	cout << v[i] << " ";
+	//}
+	cout << v;
+	
 	system("pause");
 }

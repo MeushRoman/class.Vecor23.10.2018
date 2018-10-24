@@ -23,6 +23,7 @@ public:
 	void pop_back();
 	void erase(int index);
 	void print();
+	Vector& operator=(const Vector&obj);
 
 	~Vector();
 };

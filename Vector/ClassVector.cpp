@@ -88,6 +88,26 @@ void Vector::print()
 
 }
 
+Vector & Vector::operator=(const Vector & obj)
+{
+	if (this == &obj) return *this;
+	
+	if (obj.size == 0) { this->~Vector(); return *this; }
+	if (obj.size!=this->size) {}
+	if (this->size != obj.size) {
+
+		this->~Vector();
+		this->size = obj.size;
+		this->arr = new int[this->size];
+	}
+
+	for (int i = 0; i < obj.size; i++)
+	{
+		this->arr[i] = obj.arr[i];
+	}
+	return *this;
+}
+
 Vector::~Vector()
 {
 	if (this->arr != nullptr) delete[]this->arr;
