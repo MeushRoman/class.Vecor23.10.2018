@@ -29,4 +29,5 @@ public:
 };
 
 ostream &operator<<(ostream &os, const Vector&v);
+istream & operator>>(istream&is, Vector&v);
 

@@ -31,6 +31,7 @@ Vector::Vector(int size, int element)
 	{
 		this->arr[i] = element;
 	}
+	this->size = size;
 }
 
 bool Vector::empty() const
@@ -50,11 +51,20 @@ int& Vector::operator[](int index) const
 
 void Vector::insert(int index, int number)
 {
-	int *tmp = new int[this->size + 1];
-	for (int i = 0, j = 0; i <= size; i++, j++)
+	if (this->size <= 0 || index < 0 || index >= this->size) return;
+	int *tmp = new int[size + 1];
+	for (int i = 0, j = 0; i < size + 1; i++, j++)
 	{
-		//if (i < index) tmp[i] = this->arr[i]; else if(i == index) 
+		if (i == index)
+		{
+			tmp[i] = number;
+			j--;
+		}
+		else tmp[i] = this->arr[j];
 	}
+	delete[] this->arr;
+	this->arr = tmp;
+	this->size++;
 }
 
 void Vector::clear()
@@ -75,18 +85,39 @@ void Vector::push_back(int number)
 
 void Vector::pop_back()
 {
+	if (this->size <= 0) return;
+	if (this->size == 1) {
+		this->~Vector();
+		return;
+	}
 
+	int *tmp = new int[size - 1];
+
+	for (int i = 0; i < size - 1; i++)
+	{
+		tmp[i] = this->arr[i];
+	}
+	delete[]this->arr;
+	this->arr = tmp;
+	this->size--;
 }
 
 void Vector::erase(int index)
 {
+	if (this->size <= 0 || index < 0 || index >= this->size) return;
 
+	int *tmp = new int[size - 1];
+	for (int i = 0, j = 0; i < size - 1; i++, j++)
+	{
+		if (i == index) j++;
+
+		tmp[i] = this->arr[j];
+	}
+	delete[]this->arr;
+	this->arr = tmp;
+	this->size--;
 }
 
-void Vector::print()
-{
-
-}
 
 Vector & Vector::operator=(const Vector & obj)
 {
@@ -123,4 +154,13 @@ ostream & operator<<(ostream & os, const Vector & v)
 	}
 
 	return os;
+}
+
+istream & operator>>(istream&is, Vector&v) {
+	for (int i = 0; i < v.getSize(); i++)
+	{
+		is >> v[i];
+	}
+
+	return is;
 }
