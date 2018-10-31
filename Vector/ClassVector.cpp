@@ -1,5 +1,6 @@
 #include "ClassVector.h"
 
+
 Vector::Vector()
 {
 	arr = nullptr;
@@ -139,11 +140,57 @@ Vector & Vector::operator=(const Vector & obj)
 	return *this;
 }
 
+Vector & Vector::operator+=(const Vector & v)
+{
+	if (v.size == 0) return *this;
+	int newSize = this->size + v.size;
+	int *newArr = new int[newSize];
+	for (int i = 0, j = 0; i < newSize; i++)
+	{
+		if (i < this->size) newArr[i] = this->arr[i]; else {
+			 newArr[i] = v.arr[j];
+			 j++;
+		}
+	}
+	delete[]this->arr;
+
+	this->arr = newArr;
+	this->size = newSize;
+
+	return *this;
+}
+
+
+
+Vector::Vector(Vector && v)
+{
+	this->arr = v.arr;
+	this->size = v.size;
+
+	v.arr = nullptr;
+	v.size = 0;
+}
+
+Vector & Vector::operator=(Vector && v)
+{
+	
+	this->~Vector();
+	this->arr = v.arr;
+	this->size = v.size;
+
+	v.arr = nullptr;
+	v.size = 0;
+
+	return *this;
+}
+
 Vector::~Vector()
 {
 	if (this->arr != nullptr) delete[]this->arr;
 	this->arr = nullptr;
 	this->size = 0;
+
+	delete inctance;
 }
 
 ostream & operator<<(ostream & os, const Vector & v)
