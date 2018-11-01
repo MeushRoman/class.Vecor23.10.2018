@@ -119,7 +119,6 @@ void Vector::erase(int index)
 	this->size--;
 }
 
-
 Vector & Vector::operator=(const Vector & obj)
 {
 	if (this == &obj) return *this;
@@ -159,8 +158,6 @@ Vector & Vector::operator+=(const Vector & v)
 
 	return *this;
 }
-
-
 
 Vector::Vector(Vector && v)
 {
@@ -204,6 +201,8 @@ ostream & operator<<(ostream & os, const Vector & v)
 }
 
 istream & operator>>(istream&is, Vector&v) {
+
+	cout << "Enter new elements: ";
 	for (int i = 0; i < v.getSize(); i++)
 	{
 		is >> v[i];
